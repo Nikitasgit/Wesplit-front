@@ -1,0 +1,24 @@
+.sidebar {
+  width: 190px;
+  background-color: gray;
+  padding: 20px;
+  display: grid;
+  grid-template-rows: 20% 80%;
+  height: 100vh;
+  position: fixed;
+  .menu-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .btns-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .teams {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}

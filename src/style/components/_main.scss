@@ -1,0 +1,13 @@
+.main {
+  margin-left: 210px;
+  .user {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .inputs {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+  }
+}
