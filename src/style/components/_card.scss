@@ -1,0 +1,67 @@
+.user {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  h2 {
+    font-size: 2rem;
+    font-family: $font1;
+  }
+}
+.inputs-expense {
+  display: flex;
+  gap: 20px;
+  margin: 35px 0;
+  align-items: flex-end;
+  h4 {
+    font-family: $font1;
+    font-size: 0.8rem;
+  }
+
+  input[type="radio"] {
+    display: inline-block;
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1;
+    width: 1;
+    margin: -1;
+    padding: 0;
+    border: 0;
+    &:checked {
+    }
+  }
+  input {
+    padding-left: 5px;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+  .amount-input {
+    width: 70px;
+  }
+  .add-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+}
+.expenses-date-display {
+  h3 {
+    font-family: $font1;
+  }
+  h4 {
+    font-size: 0.9rem;
+  }
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.total-expenses {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  h2 {
+    font-size: 2.4rem;
+  }
+}

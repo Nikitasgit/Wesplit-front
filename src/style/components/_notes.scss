@@ -1,0 +1,31 @@
+.notes {
+  height: 50vh;
+  background-color: rgba(255, 255, 255, 0.759);
+  border: 1px solid gray;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 400px;
+  .messages {
+    position: relative;
+    p {
+      font-size: 0.9rem;
+    }
+
+    .message {
+      text-align: left;
+      background-color: rgb(206, 206, 206);
+      margin: 5px 0;
+      padding: 5px;
+      border-radius: 5px;
+    }
+  }
+
+  input {
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+}

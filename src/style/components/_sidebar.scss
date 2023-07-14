@@ -1,24 +1,77 @@
 .sidebar {
   width: 190px;
-  background-color: gray;
+  background-color: rgba(244, 244, 244, 0.5);
+  filter: blur(1);
+  box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2);
   padding: 20px;
   display: grid;
-  grid-template-rows: 20% 80%;
+  grid-template-rows: 15% 85%;
   height: 100vh;
   position: fixed;
+  button {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+  h1,
+  h3 {
+    color: var(--orange);
+  }
   .menu-sidebar {
     display: flex;
     flex-direction: column;
     gap: 20px;
-  }
-  .btns-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .teams {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+
+    .btns-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .groups {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .group-container {
+        .group {
+          display: flex;
+          gap: 5px;
+          align-items: center;
+          button {
+            font-size: 1rem;
+            font-family: $font1;
+          }
+
+          .btns-group {
+            display: flex;
+            gap: 2px;
+            svg {
+              height: 0.8rem;
+              width: 0.8rem;
+              cursor: pointer;
+              &:hover {
+                opacity: 0.6;
+              }
+            }
+          }
+        }
+        .group-list {
+          padding: 5px;
+          border-radius: 5px;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          button {
+            font-size: 0.8rem;
+            opacity: 0.75;
+            transition: 0.3s;
+            &:hover {
+              scale: 1.1;
+              opacity: 1;
+              transform: translateX(10px);
+            }
+          }
+        }
+      }
+    }
   }
 }

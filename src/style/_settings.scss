@@ -1,6 +1,29 @@
+@font-face {
+  font-family: "libre baskerville";
+  src: url(../assets/fonts/LibreBaskerville-Regular.ttf);
+}
+@font-face {
+  font-family: "quicksand";
+  src: url(../assets/fonts/Quicksand-VariableFont_wght.ttf);
+}
+
+$font1: "libre baskerville";
+$font2: "quicksand";
+
+:root {
+  --white: #fefefe;
+  --black: #000000;
+  --light-gray: #afb7bb;
+  --dark-gray: #7f8588;
+  --yellow: #ffc171;
+  --orange: #ec965d;
+  --red: #c84747;
+  --pistachio: #adc1a3;
+}
 *,
 *::before,
 *::after {
+  font-family: $font2;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -11,10 +34,20 @@ button {
   background: none;
   border: none;
   text-align: left;
+  cursor: pointer;
 }
 .hidden {
   display: none;
 }
 body {
   height: 200vh;
+  background-color: var(--pistachio);
+}
+.add-icon {
+  transition: 0.3s;
+}
+.add-icon:hover {
+  cursor: pointer;
+  scale: 1.2;
+  opacity: 0.4;
 }
