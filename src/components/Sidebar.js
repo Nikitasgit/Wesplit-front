@@ -1,30 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { ImBin } from "react-icons/im";
-import { BiEditAlt } from "react-icons/bi";
-import { RiAddCircleLine } from "react-icons/ri";
+import Group from "./Group";
 import { useDispatch, useSelector } from "react-redux";
-import { editGroup, getGroups } from "../feature/group.slice";
-import { getCurrentGroup } from "../feature/currentGroup.slice";
-import { GoPersonAdd } from "react-icons/go";
-import Userslist from "./Userslist";
+import { RiAddCircleLine } from "react-icons/ri";
+import { createGroup, getGroups } from "../feature/group.slice";
+import { getUsers } from "../feature/user.slice";
+import { getCurrentUser } from "../feature/currentUser.slice";
 import axios from "axios";
 
 const Sidebar = () => {
-  const handleAddMember = (member, group) => {
-    axios.put("http://localhost:5001/group/" + group._id, {
-      users: [...currentGroup.users, member],
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users.usersData);
+  const currentUser = useSelector((state) => state.currentUser.currentUser);
+  const groups = useSelector((state) => state.groups.groupsData);
+
+  useEffect(() => {
+    dispatch(getCurrentUser(users && currentUser ? currentUser : users[0]));
+  }, [users]);
+
+  const [groupName, setGroupName] = useState("");
+  const data = {
+    name: groupName,
+    author: currentUser?.fullName,
+    users: [currentUser],
+    _id: Date.now(),
+  };
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+    axios.post("http://localhost:5001/group", data).then(() => {
+      dispatch(createGroup(data));
+      dispatch(getGroups());
+      setGroupName("");
     });
   };
-  const [addMember, setAddMember] = useState(false);
-  const [groupList, setGroupList] = useState(false);
-  const [currentGroup, setCurrentGroup] = useState();
-  const dispatch = useDispatch();
-  const groups = useSelector((state) => state.groups.groupsData);
-  const currentUser = useSelector((state) => state.currentUser.currentUser);
-  const users = useSelector((state) => state.users.usersData);
   useEffect(() => {
     dispatch(getGroups());
-    dispatch(getCurrentGroup(currentGroup));
+    dispatch(getUsers());
   }, []);
   return (
     <div className="sidebar">
@@ -36,59 +46,28 @@ const Sidebar = () => {
           <button>
             Create new team <RiAddCircleLine />
           </button>
+          <form onSubmit={handleSubmitForm}>
+            <input
+              type="text"
+              value={groupName}
+              onChange={(e) => {
+                setGroupName(e.target.value);
+              }}
+            />
+            <button type="submit"> create</button>
+          </form>
         </div>
         <h3>My teams:</h3>
         <div className="groups">
           {groups &&
-            groups.map((group) =>
-              group.users.map((user) =>
-                user._id == currentUser?._id ? (
-                  <div className="group-container" key={group._id}>
-                    <div className="group">
-                      <button
-                        onClick={(e) => {
-                          setAddMember(false);
-                          setCurrentGroup(group);
-                          setGroupList(!groupList);
-                        }}
-                      >
-                        {group.name}
-                      </button>
-                      <div className="btns-group">
-                        <BiEditAlt className="edit" />{" "}
-                        <ImBin className="delete" />
-                        <GoPersonAdd
-                          onClick={() => {
-                            setGroupList(false);
-                            setAddMember(!addMember);
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <div className="group-list">
-                      {groupList
-                        ? group.users.map((user) => (
-                            <button key={user._id}>{user.fullName}</button>
-                          ))
-                        : null}
-                      {addMember
-                        ? users.map((user) => (
-                            <button
-                              key={user._id}
-                              onClick={() => {
-                                setAddMember(false);
-                                setGroupList(true);
-                                handleAddMember(user, group);
-                              }}
-                            >
-                              {user.fullName}
-                            </button>
-                          ))
-                        : null}
-                    </div>
-                  </div>
-                ) : null
-              )
+            groups.map(
+              (group) =>
+                group &&
+                group.users.map((user) =>
+                  currentUser && user._id == currentUser._id ? (
+                    <Group key={group._id} group={group} />
+                  ) : null
+                )
             )}
         </div>
         <button>About</button>

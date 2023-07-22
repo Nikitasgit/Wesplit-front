@@ -15,8 +15,11 @@ export const userSlice = createSlice({
     getUsersSuccess: (state, { payload }) => {
       state.usersData = payload;
     },
+    createUser: (state, { payload }) => {
+      state.usersData.push(payload);
+    },
   },
 });
 
-export const { getUsersSuccess } = userSlice.actions;
+export const { getUsersSuccess, createUser } = userSlice.actions;
 export default userSlice.reducer;

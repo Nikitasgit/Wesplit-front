@@ -16,7 +16,7 @@ const AddExpenses = () => {
         </div>
         <div className="who-expense">
           <label htmlFor="group">
-            <input type="radio" name="group" id="group" checked />
+            <input type="radio" name="group" id="group" />
             Group
           </label>
           <label htmlFor="personal">

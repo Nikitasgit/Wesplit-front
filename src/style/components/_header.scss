@@ -98,10 +98,19 @@
 
         .user-list {
           display: flex;
+          opacity: 0.7;
           align-items: center;
           gap: 8px;
           padding: 0 0 5px;
           cursor: pointer;
+          transition: 0.3s;
+          &:hover {
+            opacity: 1;
+            transform: translateX(3px);
+          }
+        }
+        .current-user {
+          opacity: 1;
         }
       }
     }

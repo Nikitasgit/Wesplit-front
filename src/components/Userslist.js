@@ -7,13 +7,19 @@ import { getCurrentUser } from "../feature/currentUser.slice";
 import { useDispatch, useSelector } from "react-redux";
 const Userslist = () => {
   const [dropdownActive, setDropdownActive] = useState(false);
-  const [currentUser, setCurrentUser] = useState();
   const users = useSelector((state) => state.users.usersData);
-  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCurrentUser(currentUser));
     dispatch(getUsers());
-  }, [currentUser]);
+    dispatch(getCurrentUser());
+  }, []);
+  const currentUser = useSelector((state) => state.currentUser.currentUser);
+  const [currentMember, setCurrentMember] = useState();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCurrentUser(currentMember));
+  }, [currentMember]);
 
   return (
     <div>
@@ -26,7 +32,7 @@ const Userslist = () => {
         >
           <BsChevronDown className="chevron" />
           <div className="user-dropdown">
-            <h4>{currentUser ? currentUser.fullName : users[0]?.fullName}</h4>
+            <h3>{currentUser ? currentUser.fullName : users[0]?.fullName}</h3>
             <FaUserNinja />
           </div>
         </div>
@@ -44,10 +50,14 @@ const Userslist = () => {
             <div className="users-list">
               {users.map((user) => (
                 <h4
-                  className="user-list"
+                  className={
+                    user._id == currentUser._id
+                      ? "user-list current-user"
+                      : "user-list"
+                  }
                   key={user._id}
                   onClick={() => {
-                    setCurrentUser(user);
+                    setCurrentMember(user);
                     setDropdownActive(!dropdownActive);
                   }}
                 >

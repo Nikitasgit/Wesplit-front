@@ -15,20 +15,30 @@ export const groupSlice = createSlice({
     getGroupsSuccess: (state, { payload }) => {
       state.groupsData = payload;
     },
-  },
-  editGroup: (state, { payload }) => {
-    state.groupsData = state.groupsData.map((group) => {
-      if (group._id === payload[1]) {
-        return {
-          ...group,
-          message: payload[0],
-        };
-      } else {
-        return group;
-      }
-    });
+
+    createGroup: (state, { payload }) => {
+      state.groupsData.push(payload);
+    },
+    editGroup: (state, { payload }) => {
+      state.groupsData = state.groupsData.map((group) => {
+        if (group._id === payload[1]) {
+          return {
+            ...group,
+            message: payload[0],
+          };
+        } else {
+          return group;
+        }
+      });
+    },
+    deleteGroup: (state, { payload }) => {
+      state.groupsData = state.groupsData.filter(
+        (group) => group._id !== payload
+      );
+    },
   },
 });
 
-export const { getGroupsSuccess, editGroup } = groupSlice.actions;
+export const { getGroupsSuccess, editGroup, createGroup, deleteGroup } =
+  groupSlice.actions;
 export default groupSlice.reducer;
