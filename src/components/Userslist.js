@@ -1,21 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import { BsChevronRight } from "react-icons/bs";
 import { FaUserNinja } from "react-icons/fa";
 import { getUsers } from "../feature/user.slice";
 import { getCurrentUser } from "../feature/currentUser.slice";
 import { useDispatch, useSelector } from "react-redux";
+import { outsideClick } from "./OutsideClickFunction";
 const Userslist = () => {
+  const dispatch = useDispatch();
   const [dropdownActive, setDropdownActive] = useState(false);
   const users = useSelector((state) => state.users.usersData);
+  const dropdownRef = useRef();
+  outsideClick(dropdownRef, setDropdownActive);
+  /*  const outsideClick = ()=> {
+    useEffect(() => {
+    let handler = (e) => {
+      if (!dropdownRef.current.contains(e.target)) {
+        setDropdownActive(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  }, []);
+  } */
+
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getCurrentUser());
   }, []);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const [currentMember, setCurrentMember] = useState();
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCurrentUser(currentMember));
@@ -26,6 +42,7 @@ const Userslist = () => {
       {!dropdownActive ? (
         <div
           className="dropdown"
+          ref={dropdownRef}
           onClick={() => {
             setDropdownActive(true);
           }}
@@ -39,6 +56,7 @@ const Userslist = () => {
       ) : (
         <div
           className="dropdown"
+          ref={dropdownRef}
           onClick={() => {
             setDropdownActive(!dropdownActive);
           }}
@@ -58,7 +76,6 @@ const Userslist = () => {
                   key={user._id}
                   onClick={() => {
                     setCurrentMember(user);
-                    setDropdownActive(!dropdownActive);
                   }}
                 >
                   {user.fullName}

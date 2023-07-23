@@ -3,7 +3,7 @@
   background-color: rgba(244, 244, 244, 0.5);
   filter: blur(1);
   box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2);
-  padding: 20px;
+  padding: 20px 15px;
   display: grid;
   grid-template-rows: 15% 85%;
   height: 100vh;
@@ -38,14 +38,21 @@
   display: flex;
   gap: 5px;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
   button {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-family: $font1;
   }
 
   .btns-group {
+    .delete-btn-active {
+      color: red;
+    }
     display: flex;
-    gap: 2px;
+    align-items: center;
+    gap: 3px;
     svg {
       height: 0.8rem;
       width: 0.8rem;
@@ -53,6 +60,10 @@
       &:hover {
         opacity: 0.6;
       }
+    }
+    .author-btns {
+      display: flex;
+      gap: 3px;
     }
   }
 }
@@ -71,5 +82,22 @@
   }
   .current-user {
     font-weight: 600;
+  }
+  .member-group {
+    display: flex;
+    gap: 5px;
+    svg {
+      height: 0.7rem;
+      width: 0.7rem;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+  }
+  .delete-active {
+    &:hover {
+      color: red;
+    }
   }
 }

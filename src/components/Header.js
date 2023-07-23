@@ -1,14 +1,17 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { GoPersonAdd } from "react-icons/go";
 import { RiAddCircleLine } from "react-icons/ri";
 import Userslist from "./Userslist";
 import { useDispatch } from "react-redux";
 import { createUser } from "../feature/user.slice";
+import { outsideClick } from "./OutsideClickFunction";
 const Header = () => {
   const [fullName, setFullName] = useState("");
   const [pseudo, setPseudo] = useState("");
   const [addUser, setAddUser] = useState(false);
+  const addUserRef = useRef();
+  outsideClick(addUserRef, setAddUser);
   const dispatch = useDispatch();
   const userData = {
     fullName,
@@ -20,12 +23,11 @@ const Header = () => {
     dispatch(createUser(userData));
     setFullName("");
     setPseudo("");
-    setAddUser(!addUser);
   };
 
   return (
     <div className="header">
-      <div className="add-user">
+      <div className="add-user" ref={addUserRef}>
         <GoPersonAdd
           className="add-user-icon"
           onClick={() => {
