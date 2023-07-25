@@ -12,20 +12,6 @@ const Userslist = () => {
   const users = useSelector((state) => state.users.usersData);
   const dropdownRef = useRef();
   outsideClick(dropdownRef, setDropdownActive);
-  /*  const outsideClick = ()=> {
-    useEffect(() => {
-    let handler = (e) => {
-      if (!dropdownRef.current.contains(e.target)) {
-        setDropdownActive(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    };
-  }, []);
-  } */
-
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getCurrentUser());

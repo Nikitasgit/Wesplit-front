@@ -25,6 +25,8 @@ const Group = ({ group }) => {
   const groupListRef = useRef();
   outsideClick(groupListRef, setGroupList);
   const [deleteUserActive, setDeleteUserActive] = useState(false);
+  /*   const deleteUserRef = useRef();
+  outsideClick(deleteUserRef, setDeleteUserActive); */
   const [editGroup, setEditGroup] = useState(false);
 
   const [currentGroup, setCurrentGroup] = useState();
@@ -105,6 +107,7 @@ const Group = ({ group }) => {
         {currentUser.fullName === group.author ? (
           <div className="btns-group">
             <AiOutlineUserDelete
+              /* ref={deleteUserRef} */
               className={deleteUserActive ? "delete-btn-active" : "delete-btn"}
               onClick={() => {
                 setDeleteUserActive(!deleteUserActive);
