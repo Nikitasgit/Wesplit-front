@@ -15,13 +15,14 @@ const Group = ({ group }) => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.usersData);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
-
+  const currentGroup = useSelector((state) => state.currentGroup.currentGroup);
   const groups = useSelector((state) => state.groups.groupsData);
   const [groupUsersList, setGroupUsersList] = useState([]);
   const [addMember, setAddMember] = useState(false);
   const addMemberRef = useRef();
   outsideClick(addMemberRef, setAddMember);
-  const [groupList, setGroupList] = useState(false);
+  const [groupList, setGroupList] = useState(null);
+
   const groupListRef = useRef();
   outsideClick(groupListRef, setGroupList);
   const [deleteUserActive, setDeleteUserActive] = useState(false);
@@ -29,7 +30,6 @@ const Group = ({ group }) => {
   outsideClick(deleteUserRef, setDeleteUserActive); */
   const [editGroup, setEditGroup] = useState(false);
 
-  const [currentGroup, setCurrentGroup] = useState();
   const [editGroupInput, setEditGroupInput] = useState("");
   const handleEditGroup = (e) => {
     e.preventDefault();
@@ -69,11 +69,10 @@ const Group = ({ group }) => {
     dispatch(
       getCurrentGroup(groups && currentGroup ? currentGroup : groups[0])
     );
-  }, [groups, currentGroup]);
+  }, [groups]);
 
   useEffect(() => {
     dispatch(getUsers());
-    dispatch(getCurrentGroup());
   }, []);
 
   const handleAddMember = (member, group) => {
@@ -91,7 +90,6 @@ const Group = ({ group }) => {
       <div
         className="group"
         onClick={() => {
-          setCurrentGroup(group);
           group.users.map((user) =>
             setGroupUsersList((groupList) => [...groupList, user._id])
           );
@@ -99,6 +97,7 @@ const Group = ({ group }) => {
       >
         <button
           onClick={() => {
+            dispatch(getCurrentGroup(group));
             setGroupList(true);
           }}
         >
@@ -141,7 +140,8 @@ const Group = ({ group }) => {
       </div>
       <div className="group-list" ref={groupListRef}>
         {groupList
-          ? currentGroup.users.map((user) => (
+          ? currentGroup &&
+            currentGroup.users.map((user) => (
               <div>
                 <button
                   className={

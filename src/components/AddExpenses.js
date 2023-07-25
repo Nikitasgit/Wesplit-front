@@ -1,5 +1,5 @@
 import React from "react";
-import { BsInfoCircle } from "react-icons/bs";
+
 import { RiAddCircleLine } from "react-icons/ri";
 
 const AddExpenses = () => {
@@ -29,14 +29,6 @@ const AddExpenses = () => {
           </label>
         </div>
         <RiAddCircleLine className="add-icon" />
-      </div>
-      <div className="expenses-date-display">
-        <h3>Your expenses since</h3>
-        <h4>18 April 2023</h4>
-      </div>
-      <div className="total-expenses">
-        <h2>230 €</h2>
-        <BsInfoCircle />
       </div>
     </div>
   );

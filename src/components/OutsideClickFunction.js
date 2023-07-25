@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export const outsideClick = (ref, setHook) => {
   useEffect(() => {
     let handler = (e) => {
-      if (!ref.current.contains(e.target)) {
+      if (ref.current && !ref.current.contains(e.target)) {
         setHook(false);
       }
     };
@@ -11,5 +11,5 @@ export const outsideClick = (ref, setHook) => {
     return () => {
       document.removeEventListener("mousedown", handler);
     };
-  }, []);
+  }, [ref]);
 };
